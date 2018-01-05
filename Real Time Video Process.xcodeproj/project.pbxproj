@@ -7,25 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F184EB01FF7E26D009C1227 /* OpenGLESPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F184EAF1FF7E26D009C1227 /* OpenGLESPlayerViewController.m */; };
+		0F184EB31FF7E286009C1227 /* APLEAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F184EB11FF7E286009C1227 /* APLEAGLView.m */; };
+		0F184EB91FF90A07009C1227 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0F184EB71FF90A07009C1227 /* Shader.fsh */; };
+		0F184EBA1FF90A07009C1227 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0F184EB81FF90A07009C1227 /* Shader.vsh */; };
+		0F184F2A1FFCCF26009C1227 /* TheiaVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F184F291FFCCF26009C1227 /* TheiaVideoCell.m */; };
+		0F184F311FFDBED8009C1227 /* THProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F184F301FFDBED8009C1227 /* THProfile.m */; };
+		0F184F381FFF42EE009C1227 /* THOrientationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F184F371FFF42EE009C1227 /* THOrientationNavigationController.m */; };
 		0F362D951FF1D4AD007F23A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F362D941FF1D4AD007F23A4 /* AppDelegate.m */; };
-		0F362D981FF1D4AD007F23A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F362D971FF1D4AD007F23A4 /* ViewController.m */; };
+		0F362D981FF1D4AD007F23A4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F362D971FF1D4AD007F23A4 /* MainViewController.m */; };
 		0F362D9B1FF1D4AD007F23A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F362D991FF1D4AD007F23A4 /* Main.storyboard */; };
 		0F362D9D1FF1D4AD007F23A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F362D9C1FF1D4AD007F23A4 /* Assets.xcassets */; };
 		0F362DA01FF1D4AD007F23A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F362D9E1FF1D4AD007F23A4 /* LaunchScreen.storyboard */; };
 		0F362DA31FF1D4AD007F23A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F362DA21FF1D4AD007F23A4 /* main.m */; };
+		0F362DAB1FF1D506007F23A4 /* ElephantSeals.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0F362DAA1FF1D506007F23A4 /* ElephantSeals.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F184EAE1FF7E26D009C1227 /* OpenGLESPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGLESPlayerViewController.h; sourceTree = "<group>"; };
+		0F184EAF1FF7E26D009C1227 /* OpenGLESPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGLESPlayerViewController.m; sourceTree = "<group>"; };
+		0F184EB11FF7E286009C1227 /* APLEAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLEAGLView.m; sourceTree = "<group>"; };
+		0F184EB21FF7E286009C1227 /* APLEAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLEAGLView.h; sourceTree = "<group>"; };
+		0F184EB71FF90A07009C1227 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		0F184EB81FF90A07009C1227 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		0F184F281FFCCF26009C1227 /* TheiaVideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TheiaVideoCell.h; sourceTree = "<group>"; };
+		0F184F291FFCCF26009C1227 /* TheiaVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheiaVideoCell.m; sourceTree = "<group>"; };
+		0F184F2C1FFDB74F009C1227 /* Real Time Video Process-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Real Time Video Process-Bridging-Header.h"; sourceTree = "<group>"; };
+		0F184F2F1FFDBED8009C1227 /* THProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THProfile.h; sourceTree = "<group>"; };
+		0F184F301FFDBED8009C1227 /* THProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THProfile.m; sourceTree = "<group>"; };
+		0F184F361FFF42EE009C1227 /* THOrientationNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THOrientationNavigationController.h; sourceTree = "<group>"; };
+		0F184F371FFF42EE009C1227 /* THOrientationNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THOrientationNavigationController.m; sourceTree = "<group>"; };
 		0F362D901FF1D4AD007F23A4 /* Real Time Video Process.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Real Time Video Process.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F362D931FF1D4AD007F23A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0F362D941FF1D4AD007F23A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0F362D961FF1D4AD007F23A4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0F362D971FF1D4AD007F23A4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0F362D961FF1D4AD007F23A4 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		0F362D971FF1D4AD007F23A4 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		0F362D9A1FF1D4AD007F23A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0F362D9C1FF1D4AD007F23A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F362D9F1FF1D4AD007F23A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F362DA11FF1D4AD007F23A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F362DA21FF1D4AD007F23A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0F362DAA1FF1D506007F23A4 /* ElephantSeals.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = ElephantSeals.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +61,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F184EFF1FFB65BF009C1227 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0F362D931FF1D4AD007F23A4 /* AppDelegate.h */,
+				0F362D941FF1D4AD007F23A4 /* AppDelegate.m */,
+				0F362D991FF1D4AD007F23A4 /* Main.storyboard */,
+				0F362D9C1FF1D4AD007F23A4 /* Assets.xcassets */,
+				0F362D9E1FF1D4AD007F23A4 /* LaunchScreen.storyboard */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		0F184F251FFCCEF9009C1227 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0F184F281FFCCF26009C1227 /* TheiaVideoCell.h */,
+				0F184F291FFCCF26009C1227 /* TheiaVideoCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		0F184F2B1FFDB71F009C1227 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F184F2C1FFDB74F009C1227 /* Real Time Video Process-Bridging-Header.h */,
+				0F184F2F1FFDBED8009C1227 /* THProfile.h */,
+				0F184F301FFDBED8009C1227 /* THProfile.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0F362D871FF1D4AD007F23A4 = {
 			isa = PBXGroup;
 			children = (
@@ -58,17 +111,56 @@
 		0F362D921FF1D4AD007F23A4 /* Real Time Video Process */ = {
 			isa = PBXGroup;
 			children = (
-				0F362D931FF1D4AD007F23A4 /* AppDelegate.h */,
-				0F362D941FF1D4AD007F23A4 /* AppDelegate.m */,
-				0F362D961FF1D4AD007F23A4 /* ViewController.h */,
-				0F362D971FF1D4AD007F23A4 /* ViewController.m */,
-				0F362D991FF1D4AD007F23A4 /* Main.storyboard */,
-				0F362D9C1FF1D4AD007F23A4 /* Assets.xcassets */,
-				0F362D9E1FF1D4AD007F23A4 /* LaunchScreen.storyboard */,
+				0F184EFF1FFB65BF009C1227 /* Support Files */,
+				0F50C3021FF3675F00BB7C9F /* Class */,
+				0F362DA91FF1D4FE007F23A4 /* Video */,
 				0F362DA11FF1D4AD007F23A4 /* Info.plist */,
 				0F362DA21FF1D4AD007F23A4 /* main.m */,
 			);
 			path = "Real Time Video Process";
+			sourceTree = "<group>";
+		};
+		0F362DA91FF1D4FE007F23A4 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				0F362DAA1FF1D506007F23A4 /* ElephantSeals.mov */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		0F50C3021FF3675F00BB7C9F /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				0F184F2B1FFDB71F009C1227 /* Model */,
+				0F50C3041FF3676D00BB7C9F /* View */,
+				0F50C3031FF3676500BB7C9F /* View Controller */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		0F50C3031FF3676500BB7C9F /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0F362D961FF1D4AD007F23A4 /* MainViewController.h */,
+				0F362D971FF1D4AD007F23A4 /* MainViewController.m */,
+				0F184EAE1FF7E26D009C1227 /* OpenGLESPlayerViewController.h */,
+				0F184EAF1FF7E26D009C1227 /* OpenGLESPlayerViewController.m */,
+				0F184F361FFF42EE009C1227 /* THOrientationNavigationController.h */,
+				0F184F371FFF42EE009C1227 /* THOrientationNavigationController.m */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		0F50C3041FF3676D00BB7C9F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F184F251FFCCEF9009C1227 /* Cell */,
+				0F184EB21FF7E286009C1227 /* APLEAGLView.h */,
+				0F184EB11FF7E286009C1227 /* APLEAGLView.m */,
+				0F184EB71FF90A07009C1227 /* Shader.fsh */,
+				0F184EB81FF90A07009C1227 /* Shader.vsh */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,6 +194,7 @@
 				TargetAttributes = {
 					0F362D8F1FF1D4AD007F23A4 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -131,7 +224,10 @@
 			files = (
 				0F362DA01FF1D4AD007F23A4 /* LaunchScreen.storyboard in Resources */,
 				0F362D9D1FF1D4AD007F23A4 /* Assets.xcassets in Resources */,
+				0F184EBA1FF90A07009C1227 /* Shader.vsh in Resources */,
+				0F362DAB1FF1D506007F23A4 /* ElephantSeals.mov in Resources */,
 				0F362D9B1FF1D4AD007F23A4 /* Main.storyboard in Resources */,
+				0F184EB91FF90A07009C1227 /* Shader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +238,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F362D981FF1D4AD007F23A4 /* ViewController.m in Sources */,
+				0F184EB01FF7E26D009C1227 /* OpenGLESPlayerViewController.m in Sources */,
+				0F184EB31FF7E286009C1227 /* APLEAGLView.m in Sources */,
+				0F184F2A1FFCCF26009C1227 /* TheiaVideoCell.m in Sources */,
+				0F184F311FFDBED8009C1227 /* THProfile.m in Sources */,
+				0F362D981FF1D4AD007F23A4 /* MainViewController.m in Sources */,
+				0F184F381FFF42EE009C1227 /* THOrientationNavigationController.m in Sources */,
 				0F362DA31FF1D4AD007F23A4 /* main.m in Sources */,
 				0F362D951FF1D4AD007F23A4 /* AppDelegate.m in Sources */,
 			);
@@ -278,12 +379,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 95VE89RM7W;
 				INFOPLIST_FILE = "Real Time Video Process/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shoujhengduan.Real-Time-Video-Process";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Real Time Video Process/Class/Model/Real Time Video Process-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -292,12 +397,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 95VE89RM7W;
 				INFOPLIST_FILE = "Real Time Video Process/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shoujhengduan.Real-Time-Video-Process";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Real Time Video Process/Class/Model/Real Time Video Process-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
