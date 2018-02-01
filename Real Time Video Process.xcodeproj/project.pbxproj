@@ -14,7 +14,6 @@
 		0F184F2A1FFCCF26009C1227 /* TheiaVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F184F291FFCCF26009C1227 /* TheiaVideoCell.m */; };
 		0F184F311FFDBED8009C1227 /* THProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F184F301FFDBED8009C1227 /* THProfile.m */; };
 		0F184F381FFF42EE009C1227 /* THOrientationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F184F371FFF42EE009C1227 /* THOrientationNavigationController.m */; };
-		0F2BA02820118AF700A21AF9 /* THPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2BA02720118AF700A21AF9 /* THPlayerViewController.m */; };
 		0F362D951FF1D4AD007F23A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F362D941FF1D4AD007F23A4 /* AppDelegate.m */; };
 		0F362D981FF1D4AD007F23A4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F362D971FF1D4AD007F23A4 /* MainViewController.m */; };
 		0F362D9B1FF1D4AD007F23A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F362D991FF1D4AD007F23A4 /* Main.storyboard */; };
@@ -38,8 +37,6 @@
 		0F184F301FFDBED8009C1227 /* THProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THProfile.m; sourceTree = "<group>"; };
 		0F184F361FFF42EE009C1227 /* THOrientationNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THOrientationNavigationController.h; sourceTree = "<group>"; };
 		0F184F371FFF42EE009C1227 /* THOrientationNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THOrientationNavigationController.m; sourceTree = "<group>"; };
-		0F2BA02620118AF700A21AF9 /* THPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THPlayerViewController.h; sourceTree = "<group>"; };
-		0F2BA02720118AF700A21AF9 /* THPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THPlayerViewController.m; sourceTree = "<group>"; };
 		0F362D901FF1D4AD007F23A4 /* Real Time Video Process.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Real Time Video Process.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F362D931FF1D4AD007F23A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0F362D941FF1D4AD007F23A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -150,8 +147,6 @@
 				0F184EAF1FF7E26D009C1227 /* OpenGLESPlayerViewController.m */,
 				0F184F361FFF42EE009C1227 /* THOrientationNavigationController.h */,
 				0F184F371FFF42EE009C1227 /* THOrientationNavigationController.m */,
-				0F2BA02620118AF700A21AF9 /* THPlayerViewController.h */,
-				0F2BA02720118AF700A21AF9 /* THPlayerViewController.m */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -249,7 +244,6 @@
 				0F184F311FFDBED8009C1227 /* THProfile.m in Sources */,
 				0F362D981FF1D4AD007F23A4 /* MainViewController.m in Sources */,
 				0F184F381FFF42EE009C1227 /* THOrientationNavigationController.m in Sources */,
-				0F2BA02820118AF700A21AF9 /* THPlayerViewController.m in Sources */,
 				0F362DA31FF1D4AD007F23A4 /* main.m in Sources */,
 				0F362D951FF1D4AD007F23A4 /* AppDelegate.m in Sources */,
 			);

@@ -13,7 +13,6 @@
 #import "MainViewController.h"
 #import "OpenGLESPlayerViewController.h"
 #import "THOrientationNavigationController.h"
-#import "THPlayerViewController.h"
 
 #import "TheiaVideoCell.h"
 
@@ -128,7 +127,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OpenGLESPlayerViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"OpenGLESPlayerViewController"];
-//    THPlayerViewController *vc = [[THPlayerViewController alloc] init];
     THOrientationNavigationController *nc = [[THOrientationNavigationController alloc] initWithRootViewController:vc];
     vc.asset = self.assetArray[indexPath.row];
     
