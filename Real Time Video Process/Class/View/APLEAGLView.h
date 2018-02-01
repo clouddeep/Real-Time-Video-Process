@@ -10,6 +10,11 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
+// OpenGL ES 2.0 -> 3.0:
+// 1. import ES2 -> ES3
+// 2. OpenGL ES 2.0：GL_RED_EXT、GL_RG_EXT
+//    OpenGL ES 3.0：GL_LUMINANCE、GL_LUMINANCE_ALPHA
+
 @interface APLEAGLView : UIView
 
 @property GLfloat preferredRotation;
