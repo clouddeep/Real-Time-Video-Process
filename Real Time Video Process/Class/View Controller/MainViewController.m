@@ -147,8 +147,8 @@
 {
     TheiaVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:kVideoCell forIndexPath:indexPath];
     
-    cell.titleLabel.text = self.titleArray[0];
-    cell.descriptionLabel.text = self.descriptionArray[0];
+    cell.titleLabel.text = self.titleArray[indexPath.row];
+    cell.descriptionLabel.text = self.descriptionArray[indexPath.row];
     // If you have any thumbnail image, uncommet this line.
 //    [cell setThumbnailImage:self.thumbnailArray[indexPath.row]];
     
@@ -165,7 +165,7 @@
     cell.videoThumbnailImageView.image = image;*/
     
     // Use thumbnail image
-    cell.videoThumbnailImageView.image = [UIImage imageNamed:self.thumbnailArray.firstObject];
+    cell.videoThumbnailImageView.image = [UIImage imageNamed:self.thumbnailArray[indexPath.row]];
     
     return cell;
 }
