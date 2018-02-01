@@ -13,6 +13,8 @@
 #import "MainViewController.h"
 #import "OpenGLESPlayerViewController.h"
 #import "THOrientationNavigationController.h"
+#import "THPlayerViewController.h"
+
 #import "TheiaVideoCell.h"
 
 #import "THProfile.h"
@@ -39,10 +41,7 @@
     [super viewDidLoad];
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"threal_mark"]];
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(pickVideoOrientation:)];
-    [self.navigationItem setRightBarButtonItem:item animated:NO];
-    
+        
     self.assetArray = [NSMutableArray array];
     
     [self loadDataAsync];
@@ -50,7 +49,7 @@
 
 #pragma mark - Actions
 
-- (void)pickVideoOrientation:(UIBarButtonItem *)sender
+- (IBAction)pickVideoOrientation:(UIBarButtonItem *)sender
 {
     NSString *cancelTitle = @"Cancel";
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -70,7 +69,8 @@
 
 #pragma mark - Data Loading
 
-- (void)loadDataAsync {
+- (void)loadDataAsync
+{
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t groupQueue = dispatch_queue_create("group queue", 0);
     
@@ -128,6 +128,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OpenGLESPlayerViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"OpenGLESPlayerViewController"];
+//    THPlayerViewController *vc = [[THPlayerViewController alloc] init];
     THOrientationNavigationController *nc = [[THOrientationNavigationController alloc] initWithRootViewController:vc];
     vc.asset = self.assetArray[indexPath.row];
     
@@ -146,21 +147,25 @@
 {
     TheiaVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:kVideoCell forIndexPath:indexPath];
     
-    cell.titleLabel.text = self.titleArray[indexPath.row];
-    cell.descriptionLabel.text = self.descriptionArray[indexPath.row];
+    cell.titleLabel.text = self.titleArray[0];
+    cell.descriptionLabel.text = self.descriptionArray[0];
     // If you have any thumbnail image, uncommet this line.
 //    [cell setThumbnailImage:self.thumbnailArray[indexPath.row]];
     
     AVURLAsset *asset = self.assetArray[indexPath.row];
     [cell setVideoTimeWithSeconds:CMTimeGetSeconds(asset.duration)];
     
-    AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    /*
+    AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:asset];
     generator.appliesPreferredTrackTransform = YES;
     
     CMTime actualTime = kCMTimeZero;
     CGImageRef cgImageRef = [generator copyCGImageAtTime:kCMTimeZero actualTime:&actualTime error:nil];
     UIImage *image = [UIImage imageWithCGImage:cgImageRef];
-    cell.videoThumbnailImageView.image = image;
+    cell.videoThumbnailImageView.image = image;*/
+    
+    // Use thumbnail image
+    cell.videoThumbnailImageView.image = [UIImage imageNamed:self.thumbnailArray.firstObject];
     
     return cell;
 }
@@ -193,7 +198,7 @@
 - (NSArray *)thumbnailArray
 {
     if (!_thumbnailArray) {
-        _thumbnailArray = @[];
+        _thumbnailArray = @[@"thumbnail_image_01"];
     }
     return _thumbnailArray;
 }

@@ -23,6 +23,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     dispatch_queue_t _myVideoOutputQueue;
     id _notificationToken;
     id _timeObserver;
+    NSTimer *_panelTimer;
 }
 
 @property (weak, nonatomic) IBOutlet APLEAGLView *openGLView;
@@ -34,11 +35,17 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 @property (weak, nonatomic) IBOutlet UIView *dismissView;
 @property (weak, nonatomic) IBOutlet UIButton *dismissButton;
 
+@property (weak, nonatomic) IBOutlet UIView *panelView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UILabel *currentTime;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (weak, nonatomic) IBOutlet UILabel *remainingTime;
+
+@property (nonatomic, getter=isPanelViewHidden) BOOL panelViewHidden;
+@property (nonatomic, getter=isPanelViewHiddenAnimating) BOOL panelViewHiddenAnimating;
+
+@property (nonatomic, getter=isVideoPlaying) BOOL videoPlay;
 
 @end
 
@@ -51,22 +58,26 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     _player = [[AVPlayer alloc] init];
+    self.panelViewHiddenAnimating = NO;
+    _panelViewHidden = NO;
+    _videoPlay = NO;
     
     // Setup CADisplayLink which will callback displayPixelBuffer: at every vsync.
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
-    [[self displayLink] addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [[self displayLink] setPaused:YES];
+    [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    self.displayLink.paused = YES;
     
     // Setup AVPlayerItemVideoOutput with the required pixelbuffer attributes.
     NSDictionary *pixBuffAttributes = @{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)};
     self.videoOutput = [[AVPlayerItemVideoOutput alloc] initWithPixelBufferAttributes:pixBuffAttributes];
     _myVideoOutputQueue = dispatch_queue_create("myVideoOutputQueue", DISPATCH_QUEUE_SERIAL);
-    [[self videoOutput] setDelegate:self queue:_myVideoOutputQueue];
+    [self.videoOutput setDelegate:self queue:_myVideoOutputQueue];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self addObserver:self forKeyPath:@"player.currentItem.status" options:NSKeyValueObservingOptionNew context:AVPlayerItemStatusContext];
+    
     [self addTimeObserverToPlayer];
     
     [super viewWillAppear:animated];
@@ -78,7 +89,6 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     
     [[self openGLView] setupGL];
     
-//    NSURL *url = [[NSBundle mainBundle] URLForResource:@"ElephantSeals" withExtension:@"mov"];
     [self setupPlaybackForAssset:self.asset];
 }
 
@@ -93,7 +103,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     [self.player pause];
     
     if (_notificationToken) {
-        [[NSNotificationCenter defaultCenter] removeObserver:_notificationToken name:AVPlayerItemDidPlayToEndTimeNotification object:_player.currentItem];
+        [[NSNotificationCenter defaultCenter] removeObserver:_notificationToken name:AVPlayerItemDidPlayToEndTimeNotification object:self.player.currentItem];
         _notificationToken = nil;
     }
     
@@ -111,7 +121,9 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
      */
     
     // Remove video output from old item, if any.
-    [[_player currentItem] removeOutput:self.videoOutput];
+    if (_player.currentItem) {
+        [_player.currentItem removeOutput:self.videoOutput];
+    }
     
     AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
 //    AVAsset *asset = item.asset;
@@ -132,13 +144,18 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
                          The orientation of the camera while recording affects the orientation of the images received from an AVPlayerItemVideoOutput. Here we compute a rotation that is used to correctly orientate the video.
                          */
                         self.openGLView.preferredRotation = -1 * atan2(preferredTransform.b, preferredTransform.a);
-
+                        
+                        // Video playback loop
+                        [self addDidPlayToEndTimeNotificationForPlayerItem:item];
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [item addOutput:self.videoOutput];
-                            [_player replaceCurrentItemWithPlayerItem:item];
+                            [self.player replaceCurrentItemWithPlayerItem:item];
                             [self.videoOutput requestNotificationOfMediaDataChangeWithAdvanceInterval:ONE_FRAME_DURATION];
-                            [_player play];
+                            [self.player play];
+                            [self.playButton setImage:[UIImage imageNamed:@"btn_pause"] forState:UIControlStateNormal];
+                            [self addPanelViewHiddenTimer];
+                            _videoPlay = YES;
                         });
                         
                     }
@@ -165,13 +182,13 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     // Calculate the nextVsync time which is when the screen will be refreshed next.
     CFTimeInterval nextVSync = ([sender timestamp] + [sender duration]);
     
-    outputItemTime = [[self videoOutput] itemTimeForHostTime:nextVSync];
+    outputItemTime = [self.videoOutput itemTimeForHostTime:nextVSync];
     
-    if ([[self videoOutput] hasNewPixelBufferForItemTime:outputItemTime]) {
+    if ([self.videoOutput hasNewPixelBufferForItemTime:outputItemTime]) {
         CVPixelBufferRef pixelBuffer = NULL;
-        pixelBuffer = [[self videoOutput] copyPixelBufferForItemTime:outputItemTime itemTimeForDisplay:NULL];
+        pixelBuffer = [self.videoOutput copyPixelBufferForItemTime:outputItemTime itemTimeForDisplay:NULL];
         
-        [[self openGLView] displayPixelBuffer:pixelBuffer];
+        [self.openGLView displayPixelBuffer:pixelBuffer];
         
         if (pixelBuffer != NULL) {
             CFRelease(pixelBuffer);
@@ -206,6 +223,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
                 break;
             case AVPlayerItemStatusFailed:
                 [self stopLoadingAnimationAndHandleError:_player.currentItem.error];
+                
                 break;
         }
     }
@@ -225,6 +243,10 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     double durations = CMTimeGetSeconds(_player.currentItem.duration);
     self.slider.maximumValue = durations;
     self.slider.value = 0;
+    
+    CIContext *c;
+    CIImage *im;
+    [c drawImage:im inRect:CGRectZero fromRect:CGRectZero];
 }
 
 - (void)stopLoadingAnimationAndHandleError:(NSError *)error
@@ -239,6 +261,22 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)addDidPlayToEndTimeNotificationForPlayerItem:(AVPlayerItem *)item
+{
+    if (_notificationToken)
+        _notificationToken = nil;
+    
+    /*
+     Setting actionAtItemEnd to None prevents the movie from getting paused at item end. A very simplistic, and not gapless, looped playback.
+     */
+    _player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    _notificationToken = [[NSNotificationCenter defaultCenter] addObserverForName:AVPlayerItemDidPlayToEndTimeNotification object:item queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        // Simple item playback rewind.
+        [_player seekToTime:kCMTimeZero];
+        [_player play];
+    }];
 }
 
 - (void)syncTimeLabel
@@ -332,14 +370,10 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 {
     switch (self.player.timeControlStatus) {
         case AVPlayerTimeControlStatusPlaying:
-            [self.player pause];
-            self.displayLink.paused = YES;
-            [sender setTitle:@"II" forState:UIControlStateNormal];
+            self.videoPlay = NO;
             break;
         case AVPlayerTimeControlStatusPaused:
-            [self.player play];
-            self.displayLink.paused = NO;
-            [sender setTitle:@"►" forState:UIControlStateNormal];
+            self.videoPlay = YES;
             break;
         default: // wait
             // do nothing
@@ -349,15 +383,92 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 
 - (IBAction)videoTimeChange:(UISlider *)sender
 {
-    [self.player pause];
-    self.displayLink.paused = YES;
-    float value = sender.value;
-    CMTime time = CMTimeMakeWithSeconds(value, 1);
-    __weak typeof(self) weakSelf = self;
-    [self.player seekToTime:time completionHandler:^(BOOL finished) {
-        [weakSelf.player play];
-        weakSelf.displayLink.paused = NO;
+    // Remove timer when scrolling slider
+    [self removePanelViewHiddenTimer];
+    
+    // Stop playing when scrolling slider
+    if (self.isVideoPlaying) {
+        self.videoPlay = NO;
+    }
+    
+    // Set player to new time when user don't scroll the slider
+    if (!sender.isTracking) {
+        float value = sender.value;
+        CMTime time = CMTimeMakeWithSeconds(value, 1);
+        __weak typeof(self) weakSelf = self;
+        [self.player seekToTime:time completionHandler:^(BOOL finished) {
+            weakSelf.videoPlay = YES;
+        }];
+        // Add timer when scrolling ended
+        [self addPanelViewHiddenTimer];
+    }
+}
+
+- (IBAction)handlePanelViewDisplay:(UITapGestureRecognizer *)sender
+{
+    self.panelViewHidden = !self.isPanelViewHidden;
+}
+
+- (void)setVideoPlay:(BOOL)videoPlay
+{
+    if (videoPlay) {
+        [self.player play];
+        self.displayLink.paused = NO;
+        [self.playButton setImage:[UIImage imageNamed:@"btn_pause"] forState:UIControlStateNormal];
+    } else {
+        [self.player pause];
+        self.displayLink.paused = YES;
+        [self.playButton setImage:[UIImage imageNamed:@"btn_play"] forState:UIControlStateNormal];
+    }
+    _videoPlay = videoPlay;
+}
+
+#pragma mark - Panel View
+
+- (void)setPanelViewHidden:(BOOL)panelViewHidden
+{
+    // Prevent from rapid touch
+    if (self.isPanelViewHiddenAnimating) { return; }
+    
+    if (!panelViewHidden) {
+        self.dismissView.hidden = NO;
+        self.bottomView.hidden = NO;
+    }
+    
+    self.panelViewHiddenAnimating = YES;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.dismissView.alpha = panelViewHidden ? 0 : 1;
+        self.bottomView.alpha = panelViewHidden ? 0 : 1;
+    } completion:^(BOOL finished) {
+        if (panelViewHidden) {
+            self.dismissView.hidden = YES;
+            self.bottomView.hidden = YES;
+            [self removePanelViewHiddenTimer];
+        } else {
+            [self addPanelViewHiddenTimer];
+        }
+        self.panelViewHiddenAnimating = NO;
     }];
+    
+    _panelViewHidden = panelViewHidden;
+}
+
+- (void)addPanelViewHiddenTimer
+{
+    __weak typeof(self) weakself = self;
+    _panelTimer = [NSTimer scheduledTimerWithTimeInterval:2 repeats:NO block:^(NSTimer * _Nonnull timer) {
+        if (!weakself) { return; }
+        
+        weakself.panelViewHidden = YES;
+    }];
+}
+
+- (void)removePanelViewHiddenTimer
+{
+    if (_panelTimer) {
+        [_panelTimer invalidate];
+        _panelTimer = nil;
+    }
 }
 
 #pragma mark - Orientation
